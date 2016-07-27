@@ -66,7 +66,5 @@ defmodule Exercise03.Authenticate.Test do
   #         |> put_private(:credentials, credentials)
   #         |> Authenticate.call(%{})
   #         |> Map.get(:halted)
-  #  assert conn
-  #         |> Authenticate.call(%{"login" => credentials})
   #end
 end
