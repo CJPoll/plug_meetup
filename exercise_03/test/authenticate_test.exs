@@ -4,29 +4,29 @@ defmodule Exercise03.Authenticate.Test do
 
   alias Exercise03.Authenticate
 
-  #setup do
-  #  conn = conn(:get, "/todos")
-  #  valid_credentials =
-  #    %{username: "cool_person", password: "sUp3R$3cureP@$$"}
-  #  invalid_credentials =
-  #    %{username: "L337HaX0rZ", password: "1=1"}
+  setup do
+    conn = conn(:get, "/todos")
+    valid_credentials =
+      %{username: "cool_person", password: "sUp3R$3cureP@$$"}
+    invalid_credentials =
+      %{username: "L337HaX0rZ", password: "1=1"}
 
-  #  context =
-  #    %{conn: conn,
-  #      valid_credentials: valid_credentials,
-  #      invalid_credentials: invalid_credentials}
+    context =
+      %{conn: conn,
+        valid_credentials: valid_credentials,
+        invalid_credentials: invalid_credentials}
 
-  #  {:ok, context}
-  #end
+    {:ok, context}
+  end
 
-  #test "returns a conn", %{conn: conn, valid_credentials: credentials} do
-  #  actual =
-  #    conn
-  #    |> put_private(:credentials, credentials)
-  #    |> Authenticate.call(%{})
+  test "returns a conn", %{conn: conn, valid_credentials: credentials} do
+    actual =
+      conn
+      |> put_private(:credentials, credentials)
+      |> Authenticate.call(%{})
 
-  #  assert %Plug.Conn{} = actual
-  #end
+    assert %Plug.Conn{} = actual
+  end
 
   #test "requires a conn as the first param" do
   #  assert_raise FunctionClauseError,

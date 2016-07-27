@@ -11,59 +11,65 @@ defmodule Exercise03.TodoController.Test do
   #  {:ok, %{conn: conn, user: user}}
   #end
 
-  #describe "index" do
-  #  test "has an index/2 function", %{conn: conn} do
-  #    TodoController.index(conn, %{})
+  #test "has an index/2 function", %{conn: conn} do
+  #  TodoController.index(conn, %{})
+  #end
+
+  #test "returns a conn", %{conn: conn} do
+  #  assert %Plug.Conn{} = TodoController.index(conn, %{})
+  #end
+
+  #test "requires a conn as the first argument" do
+  #  assert_raise FunctionClauseError,
+  #  "no function clause matching in Exercise03.TodoController.index/2",
+  #  fn ->
+  #    TodoController.index(:bad_value, %{})
   #  end
+  #end
 
-  #  test "returns a conn", %{conn: conn} do
-  #    assert %Plug.Conn{} = TodoController.index(conn, %{})
+  #test "responds with a 200 status code with a valid user",
+  #%{conn: conn, user: current_user}
+  #do
+  #  resp =
+  #    conn
+  #    |> assign(:current_user, current_user)
+  #    |> TodoController.index(%{})
+
+  #  assert resp.status == 200
+  #end
+
+  #test "responds with a json representation of the user's todos",
+  #%{conn: conn, user: current_user}
+  #do
+  #  resp =
+  #    conn
+  #    |> assign(:current_user, current_user)
+  #    |> TodoController.index(%{})
+
+  #  assert Poison.decode!(resp.resp_body) == %{"todos" => [%{"todo" => "Learn Plug"}]}
+  #end
+
+  #test "has a run/2 function", %{conn: conn} do
+  #  TodoController.run(conn, %{action: :index, params: %{}})
+  #end
+
+  #test "run/2 requires an action in the params", %{conn: conn} do
+  #  assert_raise FunctionClauseError,
+  #  "no function clause matching in Exercise03.TodoController.run/2",
+  #  fn ->
+  #    TodoController.run(conn, %{params: %{}})
   #  end
+  #end
 
-  #  test "requires a conn as the first argument" do
-  #    assert_raise FunctionClauseError,
-  #    "no function clause matching in Exercise03.TodoController.index/2",
-  #    fn ->
-  #      TodoController.index(:bad_value, %{})
-  #    end
+  #test "run/2 requires params in the map", %{conn: conn} do
+  #  assert_raise FunctionClauseError,
+  #  "no function clause matching in Exercise03.TodoController.run/2",
+  #  fn ->
+  #    TodoController.run(conn, %{action: :index})
   #  end
+  #end
 
-  #    resp =
-  #      conn
-  #      |> TodoController.index(%{})
-
-  #    assert resp.status == 200
-  #  end
-
-  #    resp =
-  #      conn
-  #      |> TodoController.index(%{})
-
-  #    assert Poison.decode!(resp.resp_body) == %{"todos" => [%{"todo" => "Learn Plug"}]}
-  #  end
-
-  #  test "has a run/2 function", %{conn: conn} do
-  #    TodoController.run(conn, %{action: :index, params: %{}})
-  #  end
-
-  #  test "run/2 requires an action in the params", %{conn: conn} do
-  #    assert_raise FunctionClauseError,
-  #    "no function clause matching in Exercise03.TodoController.run/2",
-  #    fn ->
-  #      TodoController.run(conn, %{params: %{}})
-  #    end
-  #  end
-
-  #  test "run/2 requires params in the map", %{conn: conn} do
-  #    assert_raise FunctionClauseError,
-  #    "no function clause matching in Exercise03.TodoController.run/2",
-  #    fn ->
-  #      TodoController.run(conn, %{action: :index})
-  #    end
-  #  end
-
-  #  test "run/2 calls whatever function is passed in as an action, passing along the conn & params" do
-  #    # No clue how to test it - just do it
-  #  end
+  #test "run/2 calls whatever function is passed in as an action, passing along the conn & params" do
+  #  # No clue how to test it - just do it
   #end
 end
