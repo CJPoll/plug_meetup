@@ -7,7 +7,8 @@ defmodule Exercise01.Mixfile do
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     aliases: aliases()]
   end
 
   # Configuration for the OTP application
@@ -28,5 +29,9 @@ defmodule Exercise01.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:plug, "~> 1.1.6"}]
+  end
+
+  defp aliases do
+    ["test": ["test --exclude skip"]]
   end
 end
