@@ -6,15 +6,14 @@ defmodule Exercise03.Authenticate.Test do
 
   setup do
     conn = conn(:get, "/todos")
-    valid_credentials =
-      %{username: "cool_person", password: "sUp3R$3cureP@$$"}
-    invalid_credentials =
-      %{username: "L337HaX0rZ", password: "1=1"}
+    valid_credentials = %{username: "cool_person", password: "sUp3R$3cureP@$$"}
+    invalid_credentials = %{username: "L337HaX0rZ", password: "1=1"}
 
-    context =
-      %{conn: conn,
-        valid_credentials: valid_credentials,
-        invalid_credentials: invalid_credentials}
+    context = %{
+      conn: conn,
+      valid_credentials: valid_credentials,
+      invalid_credentials: invalid_credentials
+    }
 
     {:ok, context}
   end
@@ -28,43 +27,41 @@ defmodule Exercise03.Authenticate.Test do
     assert %Plug.Conn{} = actual
   end
 
-  #test "requires a conn as the first param" do
-  #  assert_raise FunctionClauseError,
-  #  "no function clause matching in Exercise03.Authenticate.call/2",
-  #  fn ->
-  #    Authenticate.call(:bad_value, %{})
-  #  end
-  #end
+  test "requires a conn as the first param" do
+    assert_raise FunctionClauseError,
+                 "no function clause matching in Exercise03.Authenticate.call/2",
+                 fn ->
+                   Authenticate.call(:bad_value, %{})
+                 end
+  end
 
-  #test "assigns the current user if credentials are valid",
-  #%{conn: conn, valid_credentials: credentials}
-  #do
-  #  expected = %Authenticate.User{username: credentials.username}
-  #  resp =
-  #    conn
-  #    |> put_private(:credentials, credentials)
-  #    |> Authenticate.call(%{})
+  test "assigns the current user if credentials are valid",
+       %{conn: conn, valid_credentials: credentials} do
+    expected = %Authenticate.User{username: credentials.username}
 
-  #  assert resp.assigns.current_user == expected
-  #end
+    resp =
+      conn
+      |> put_private(:credentials, credentials)
+      |> Authenticate.call(%{})
 
-  #test "returns a 401 if credentials are invalid",
-  #%{conn: conn, invalid_credentials: credentials}
-  #do
-  #  resp =
-  #    conn
-  #    |> put_private(:credentials, credentials)
-  #    |> Authenticate.call(%{})
+    assert resp.assigns.current_user == expected
+  end
 
-  #  assert resp.status == 401
-  #end
+  test "returns a 401 if credentials are invalid",
+       %{conn: conn, invalid_credentials: credentials} do
+    resp =
+      conn
+      |> put_private(:credentials, credentials)
+      |> Authenticate.call(%{})
 
-  #test "halts if credentials are invalid",
-  #%{conn: conn, invalid_credentials: credentials}
-  #do
-  #  assert conn
-  #         |> put_private(:credentials, credentials)
-  #         |> Authenticate.call(%{})
-  #         |> Map.get(:halted)
-  #end
+    assert resp.status == 401
+  end
+
+  test "halts if credentials are invalid",
+       %{conn: conn, invalid_credentials: credentials} do
+    assert conn
+           |> put_private(:credentials, credentials)
+           |> Authenticate.call(%{})
+           |> Map.get(:halted)
+  end
 end
